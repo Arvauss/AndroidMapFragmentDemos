@@ -7,10 +7,27 @@
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragcontainer_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragcontainer_id">
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="343dp">
 
     </androidx.fragment.app.FragmentContainerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:tooltipText="SWITCH FRAGMENTS"
+        android:src="@drawable/ic_baseline_switch_left_24"
+        android:minHeight="100dp"
+        >
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

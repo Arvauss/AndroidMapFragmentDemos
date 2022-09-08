@@ -1,9 +1,15 @@
 package com.example.fragmentdemo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,11 +19,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
+    LocationManager locationManager;
+    Location curLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+                (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)){
+
+        } else {
+          //  requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
 
         fab = findViewById(R.id.fab);
         fab.setSize(FloatingActionButton.SIZE_AUTO);
@@ -28,19 +43,10 @@ public class MainActivity extends AppCompatActivity {
                     .setReorderingAllowed(true)
                     .add(R.id.fragcontainer_id, FirstFragment.class, null, "firstfrag").commitNow();
         }
-
         SetOnClicks(fragman);
-
-
-
     }
 
     private void SetOnClicks(FragmentManager fragman){
-
-
-      //Fragment curFrag = (Fragment) fragman.findFragmentById(R.id.fragcontainer_id);
-/*        Toast.makeText(getApplicationContext(),curFrag.getTag(),Toast.LENGTH_SHORT).show();*/
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                                 .addToBackStack(null)
                                 .commit();
                         fab.setImageResource(R.drawable.ic_baseline_switch_right_24);
-
                         break;
                     case "secondfrag":
                         Log.d("1234567", fragman.findFragmentById(R.id.fragcontainer_id).getTag());
@@ -62,11 +67,17 @@ public class MainActivity extends AppCompatActivity {
                                 .addToBackStack(null)
                                 .commit();
                         fab.setImageResource(R.drawable.ic_baseline_switch_left_24);
-
                         break;
                 }
             }
         });
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 0 :
+        }
     }
 }

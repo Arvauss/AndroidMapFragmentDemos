@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 /**
@@ -15,7 +17,8 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class FirstFragment extends Fragment {
-    TextView tv;
+    TextView Lat1, Lat2, Long1, Long2, Name1, Name2, Address1, Address2 ;
+    Button btnGet;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,12 +60,23 @@ public class FirstFragment extends Fragment {
         }
 
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        Lat1 = (TextView) view.findViewById(R.id.Lat1);
+        Lat2 = (TextView) view.findViewById(R.id.Lat2);
+        Long1 = (TextView) view.findViewById(R.id.Long1);
+        Long2 = (TextView) view.findViewById(R.id.Long2);
+        Name1 = (TextView) view.findViewById(R.id.Name1);
+        Name2 = (TextView) view.findViewById(R.id.Name2);
+        Address1 = (TextView) view.findViewById(R.id.Address1);
+        Address2 = (TextView) view.findViewById(R.id.Address2);
+        btnGet = (Button) view.findViewById(R.id.btnGet);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        return view;
     }
 }

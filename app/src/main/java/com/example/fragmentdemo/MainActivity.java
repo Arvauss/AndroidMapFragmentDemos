@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.fragcontainer_id, FirstFragment.class, null, "firstfrag").commitNow();
+                    .add(R.id.fragcontainer_id, SecondFragment.class, null, "secondfrag").commitNow();
         }
         SetOnClicks(fragman);
     }
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack(null)
                                 .commit();
-                        fab.setImageResource(R.drawable.ic_baseline_switch_right_24);
+                        fab.setImageResource(R.drawable.ic_baseline_switch_left_24);
                         break;
                     case "secondfrag":
                         Log.d("1234567", fragman.findFragmentById(R.id.fragcontainer_id).getTag());
@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack(null)
                                 .commit();
-                        fab.setImageResource(R.drawable.ic_baseline_switch_left_24);
+
+                        fab.setImageResource(R.drawable.ic_baseline_switch_right_24);
                         break;
                 }
             }

@@ -186,6 +186,7 @@ public class SecondFragment extends Fragment {
             JSONObject zero = routes.getJSONObject(0);
             JSONArray legs = zero.getJSONArray("legs");
 
+
         } catch (JSONException e){
             Log.d("abcdefg", "RefineJson: " + e.getLocalizedMessage());
         }

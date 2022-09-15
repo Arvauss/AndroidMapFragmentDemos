@@ -8,15 +8,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     Location curLoc;
 
+
+    public static double lat = 0, lng = 0;
+    public static boolean isGpsEnabled = false;
+
+    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +54,49 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
 
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE) ;
+        isGpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        if (!isGpsEnabled){
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        } else {
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 30, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+                }
+
+                @Override
+                public void onProviderEnabled(@NonNull String provider) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(@NonNull String provider) {
+
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+            });
+        }
 
     }
+
+
+
 
     private void InitFrags(Bundle savedInstanceState){
         FragmentManager fragman = getSupportFragmentManager();
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
-                    .add(R.id.fragcontainer_id, SecondFragment.class, null, "secondfrag").commitNow();
+                    .add(R.id.fragcontainer_id, MapsFragment.class, null, "secondfrag").commitNow();
         }
         SetOnClicks(fragman);
     }
@@ -78,6 +124,16 @@ public class MainActivity extends AppCompatActivity {
 
                         fab.setImageResource(R.drawable.ic_baseline_switch_right_24);
                         break;
+                    case "mapfrag":
+                        Log.d("1234567", fragman.findFragmentById(R.id.fragcontainer_id).getTag());
+                        fragman.beginTransaction().replace(R.id.fragcontainer_id, FirstFragment.class, null, "firstfrag")
+                                .setReorderingAllowed(true)
+                                .addToBackStack(null)
+                                .commit();
+
+                        fab.setImageResource(R.drawable.ic_baseline_switch_right_24);
+                        break;
+
                 }
             }
         });

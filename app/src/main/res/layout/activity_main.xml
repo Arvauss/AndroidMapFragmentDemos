@@ -27,6 +27,7 @@
         android:tooltipText="SWITCH FRAGMENTS"
         android:src="@drawable/ic_baseline_switch_left_24"
         android:minHeight="100dp"
+
         >
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>

@@ -174,9 +174,9 @@ public class MapsFragment extends Fragment {
 
             try {
                 jObject = new JSONObject(jsonData[0]);
-                DirectionsJSONParser parser = ne DirectionsJSONParser();
+           //     DirectionsJSONParser parser = ne DirectionsJSONParser();
 
-                routes = parser.pase(jObject);
+           //     routes = parser.pase(jObject);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -234,4 +234,6 @@ public class MapsFragment extends Fragment {
             mapFragment.getMapAsync(callback);
         }
     }
+
+
 }
